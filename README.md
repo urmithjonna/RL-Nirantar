@@ -260,5 +260,5 @@ deck/        DSC25023,15_RL_Project.pptx · Literature_Survey_Nirantar.xlsx
 The full literature survey (15 papers, 2024–2026) is in `deck/Literature_Survey_Nirantar.xlsx`.
 
 ## Authors
-Anil Kumar (BL.SC.P2DSC25023) and Urmith Sai (BL.SC.P2DSC25015) — M.Tech, Amrita School of Computing, Bengaluru. Guide: Dr. Bharath K.P.
+J Urmith Sai Teja(BL.SC.P2DSC25015) and Anil Kumar (BL.SC.P2DSC25023) — M.Tech, Amrita School of Computing, Bengaluru. Guide: Dr. Bharath K.P.
 Course project for Reinforcement Learning (24DS742).
