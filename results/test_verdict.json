@@ -1,0 +1,5 @@
+{
+ "Q1 final beats rule-based on reward AND essentials-off not worse by 0.5 h": true,
+ "Q2 final beats MPC-CC on reward": true,
+ "Q3 final beats PPO-BC (v3) on reward": false
+}

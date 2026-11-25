@@ -1,0 +1,41 @@
+2026-10-25 02:52:22  demonstrations: 658,560 state-action pairs from 980 windows in 24.1 min
+2026-10-25 02:53:35  MLP s0 pi0: hold-out accuracy 0.908 | validation reward -13.960
+2026-10-25 03:09:45  MLP s0 pi1: learner disagreed with the expert on 40.7% of its states | validation reward -14.127
+2026-10-25 03:24:11  MLP s0 pi2: learner disagreed with the expert on 16.0% of its states | validation reward -14.233
+2026-10-25 03:24:11  MLP s0: round 0 kept (31.8 min)
+2026-10-25 03:25:21  MLP s1 pi0: hold-out accuracy 0.907 | validation reward -14.386
+2026-10-25 03:42:18  MLP s1 pi1: learner disagreed with the expert on 33.3% of its states | validation reward -13.936
+2026-10-25 03:58:04  MLP s1 pi2: learner disagreed with the expert on 16.1% of its states | validation reward -13.974
+2026-10-25 03:58:04  MLP s1: round 1 kept (33.9 min)
+2026-10-25 03:59:19  MLP s2 pi0: hold-out accuracy 0.908 | validation reward -14.366
+2026-10-25 04:15:28  MLP s2 pi1: learner disagreed with the expert on 37.3% of its states | validation reward -13.964
+2026-10-25 04:32:16  MLP s2 pi2: learner disagreed with the expert on 17.1% of its states | validation reward -14.035
+2026-10-25 04:32:16  MLP s2: round 1 kept (34.2 min)
+2026-10-25 04:33:31  MLP s3 pi0: hold-out accuracy 0.909 | validation reward -13.967
+2026-10-25 04:49:11  MLP s3 pi1: learner disagreed with the expert on 38.7% of its states | validation reward -14.187
+2026-10-25 05:05:21  MLP s3 pi2: learner disagreed with the expert on 16.7% of its states | validation reward -14.267
+2026-10-25 05:05:21  MLP s3: round 0 kept (33.1 min)
+2026-10-25 05:06:36  MLP s4 pi0: hold-out accuracy 0.908 | validation reward -14.049
+2026-10-25 05:23:03  MLP s4 pi1: learner disagreed with the expert on 35.8% of its states | validation reward -13.901
+2026-10-25 05:40:25  MLP s4 pi2: learner disagreed with the expert on 16.0% of its states | validation reward -14.233
+2026-10-25 05:40:25  MLP s4: round 1 kept (35.1 min)
+2026-10-25 05:42:15  GRU s0 pi0: hold-out accuracy 0.926 | validation reward -13.247
+2026-10-25 06:01:16  GRU s0 pi1: learner disagreed with the expert on 31.4% of its states | validation reward -14.572
+2026-10-25 06:18:26  GRU s0 pi2: learner disagreed with the expert on 18.4% of its states | validation reward -14.962
+2026-10-25 06:18:26  GRU s0: round 0 kept (38.0 min)
+2026-10-25 06:20:21  GRU s1 pi0: hold-out accuracy 0.927 | validation reward -13.470
+2026-10-25 06:36:11  GRU s1 pi1: learner disagreed with the expert on 31.3% of its states | validation reward -14.600
+2026-10-25 06:54:23  GRU s1 pi2: learner disagreed with the expert on 18.0% of its states | validation reward -15.068
+2026-10-25 06:54:23  GRU s1: round 0 kept (36.0 min)
+2026-10-25 06:56:07  GRU s2 pi0: hold-out accuracy 0.925 | validation reward -13.431
+2026-10-25 07:13:03  GRU s2 pi1: learner disagreed with the expert on 30.4% of its states | validation reward -14.723
+2026-10-25 07:28:53  GRU s2 pi2: learner disagreed with the expert on 18.6% of its states | validation reward -14.011
+2026-10-25 07:28:53  GRU s2: round 0 kept (34.5 min)
+2026-10-25 07:30:35  GRU s3 pi0: hold-out accuracy 0.926 | validation reward -13.308
+2026-10-25 07:45:45  GRU s3 pi1: learner disagreed with the expert on 28.2% of its states | validation reward -14.762
+2026-10-25 08:01:49  GRU s3 pi2: learner disagreed with the expert on 18.8% of its states | validation reward -14.873
+2026-10-25 08:01:49  GRU s3: round 0 kept (32.9 min)
+2026-10-25 08:03:31  GRU s4 pi0: hold-out accuracy 0.927 | validation reward -12.899
+2026-10-25 08:20:08  GRU s4 pi1: learner disagreed with the expert on 28.5% of its states | validation reward -15.211
+2026-10-25 08:37:09  GRU s4 pi2: learner disagreed with the expert on 18.6% of its states | validation reward -14.056
+2026-10-25 08:37:09  GRU s4: round 0 kept (35.3 min)

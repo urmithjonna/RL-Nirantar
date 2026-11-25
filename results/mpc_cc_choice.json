@@ -1,0 +1,9 @@
+{
+ "validation_reward_per_week": {
+  "0.2": -15.513666689488636,
+  "0.1": -15.469043930649129,
+  "0.05": -15.472634943661387
+ },
+ "eps_star": 0.1,
+ "rule": "best mean validation reward (FINAL_SPEC section 6)"
+}

@@ -1,0 +1,40 @@
+{
+ "voice": "Gnani Timbre timbre-v3.0 \u00b7 Kalpana \u00b7 en-IN",
+ "lines": [
+  {
+   "start_s": 0.3,
+   "end_s": 7.1,
+   "text": "Nirantar: a reinforcement learning controller for a battery shared by ten homes with frequent power cuts."
+  },
+  {
+   "start_s": 7.45,
+   "end_s": 13.45,
+   "text": "Every fifteen minutes, the policy picks one of ten battery actions, and a safety shield checks it."
+  },
+  {
+   "start_s": 13.8,
+   "end_s": 18.68,
+   "text": "Morning: homes start losing supply, and solar and the battery back them up."
+  },
+  {
+   "start_s": 24.2,
+   "end_s": 30.12,
+   "text": "Midday: solar surplus, plus some grid power, fills the battery by two p.m."
+  },
+  {
+   "start_s": 33.4,
+   "end_s": 38.44,
+   "text": "Evening peak: the battery powers the street, including the homes in a cut."
+  },
+  {
+   "start_s": 40.2,
+   "end_s": 43.8,
+   "text": "At nine p.m., the shield keeps a four-hour reserve."
+  },
+  {
+   "start_s": 44.4,
+   "end_s": 47.36,
+   "text": "Over the day, every home in a cut was served."
+  }
+ ]
+}

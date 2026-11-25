@@ -1,0 +1,79 @@
+{
+ "Mathura": {
+  "homes": 38,
+  "excluded_low_coverage": [],
+  "from": "2019-05-01 00:00:00",
+  "to": "2021-02-20 23:45:00",
+  "cut_h_per_home_day": 2.190111989184632,
+  "solar": {
+   "curve_centre_ist_h": 12.29,
+   "solar_noon_ist_h": 12.32,
+   "kwh_per_kwp_day": 3.54
+  }
+ },
+ "Bareilly": {
+  "homes": 46,
+  "excluded_low_coverage": [],
+  "from": "2019-05-09 00:00:00",
+  "to": "2021-10-31 23:45:00",
+  "cut_h_per_home_day": 1.6795069531535103,
+  "solar": {
+   "curve_centre_ist_h": 12.22,
+   "solar_noon_ist_h": 12.2,
+   "kwh_per_kwp_day": 3.42
+  }
+ },
+ "UP": {
+  "homes": 36,
+  "sites": [
+   "Awas Vikas colony Barabanki",
+   "Bardaha-Bahraich",
+   "Kanoongopura Bahraich",
+   "Masvanpur-Kanpur"
+  ],
+  "site_use": {
+   "Masvanpur-Kanpur": 19,
+   "Kanoongopura Bahraich": 6,
+   "Awas Vikas colony Barabanki": 6,
+   "Bardaha-Bahraich": 5
+  },
+  "hour_rebuilt_rows": 24528,
+  "broken_rows_dropped": 29775,
+  "cut_h_per_home_day": 2.332413748879842,
+  "solar": {
+   "curve_centre_ist_h": 12.14,
+   "solar_noon_ist_h": 12.1,
+   "kwh_per_kwp_day": 3.43
+  }
+ },
+ "Pune": {
+  "homes": 44,
+  "sites": [
+   "Kondhanpur",
+   "Paud",
+   "Talegaon"
+  ],
+  "site_days": {
+   "Kondhanpur": 365,
+   "Paud": 343,
+   "Talegaon": 348
+  },
+  "site_cut_h_per_day": {
+   "Kondhanpur": 1.32,
+   "Paud": 1.33,
+   "Talegaon": 0.63
+  },
+  "site_use": {
+   "Kondhanpur": 15,
+   "Paud": 15,
+   "Talegaon": 14
+  },
+  "hour_rebuilt_rows": 0,
+  "broken_rows_dropped": 0,
+  "solar": {
+   "curve_centre_ist_h": 12.59,
+   "solar_noon_ist_h": 12.58,
+   "kwh_per_kwp_day": 3.75
+  }
+ }
+}

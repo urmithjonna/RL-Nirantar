@@ -1,0 +1,90 @@
+{
+ "frozen_at": "2026-10-25T02:18:33",
+ "sha256": "ad07774150319b179303420b65213a03c212fe7feb89bbcd2c6453254f35c1af",
+ "gate": {
+  "cut": true,
+  "load": true
+ },
+ "cut_validation": [
+  {
+   "horizon": "1h",
+   "model": "CatBoost",
+   "train rows (50% core)": 1495310,
+   "validation rows": 1404796,
+   "Brier": 0.05097,
+   "best baseline": "(c) persistence table",
+   "Brier best baseline": 0.0614,
+   "improvement vs best (%)": 16.98327,
+   "ROC-AUC": 0.89349,
+   "ROC-AUC best baseline": 0.81721,
+   "base rate": 0.08486,
+   "Brier Mathura": 0.05619,
+   "Brier Bareilly": 0.05544,
+   "Brier UP": 0.03001
+  },
+  {
+   "horizon": "2h",
+   "model": "CatBoost",
+   "train rows (50% core)": 1489532,
+   "validation rows": 1399256,
+   "Brier": 0.05634,
+   "best baseline": "(b) home 7-day same time",
+   "Brier best baseline": 0.06542,
+   "improvement vs best (%)": 13.89196,
+   "ROC-AUC": 0.86562,
+   "ROC-AUC best baseline": 0.76555,
+   "base rate": 0.08437,
+   "Brier Mathura": 0.06713,
+   "Brier Bareilly": 0.05917,
+   "Brier UP": 0.03269
+  },
+  {
+   "horizon": "4h",
+   "model": "XGBoost",
+   "train rows (50% core)": 1478138,
+   "validation rows": 1388176,
+   "Brier": 0.05892,
+   "best baseline": "(b) home 7-day same time",
+   "Brier best baseline": 0.06489,
+   "improvement vs best (%)": 9.197,
+   "ROC-AUC": 0.84475,
+   "ROC-AUC best baseline": 0.76669,
+   "base rate": 0.08383,
+   "Brier Mathura": 0.07354,
+   "Brier Bareilly": 0.06062,
+   "Brier UP": 0.03374
+  }
+ ],
+ "load_validation": [
+  {
+   "horizon": "1h",
+   "trees": 400,
+   "MAE model (kW, street)": 0.65347,
+   "MAE (a) yesterday": 0.8189499974250793,
+   "MAE (b) persistence": 0.7590399980545044,
+   "RMSE model": 1.03143,
+   "best baseline": "(b) persistence",
+   "improvement vs best (%)": 13.90784
+  },
+  {
+   "horizon": "2h",
+   "trees": 400,
+   "MAE model (kW, street)": 0.70632,
+   "MAE (a) yesterday": 0.8191900253295898,
+   "MAE (b) persistence": 0.9152500033378601,
+   "RMSE model": 1.09934,
+   "best baseline": "(a) yesterday",
+   "improvement vs best (%)": 13.77913
+  },
+  {
+   "horizon": "4h",
+   "trees": 400,
+   "MAE model (kW, street)": 0.74381,
+   "MAE (a) yesterday": 0.8184199929237366,
+   "MAE (b) persistence": 1.1171300411224365,
+   "RMSE model": 1.15259,
+   "best baseline": "(a) yesterday",
+   "improvement vs best (%)": 9.11563
+  }
+ ]
+}

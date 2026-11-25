@@ -1,0 +1,16 @@
+method,seed,Essentials off (h/home·month),Cut demand served (%),Evening grid (kWh/day),Above cap (kWh/day),Battery cycles/day,Wear (₹/home·month),Fairness (Jain),Shield changed (% steps),Reward/week,beats rule (reward)
+"6 PPO-BC (v3, Mathura only)",0.0,1.601,88.713,3.456,0.007,0.852,22.609,0.973,2.074,-4.257,True
+"6 PPO-BC (v3, Mathura only)",1.0,1.629,91.959,3.429,0.006,0.865,22.962,0.985,1.83,-3.988,True
+"6 PPO-BC (v3, Mathura only)",2.0,1.146,91.341,3.48,0.006,0.853,22.643,0.986,1.592,-4.057,True
+"6 PPO-BC (v3, Mathura only)",3.0,1.674,87.458,3.494,0.008,0.844,22.399,0.971,4.402,-4.381,True
+"6 PPO-BC (v3, Mathura only)",4.0,1.121,93.156,3.592,0.004,0.85,22.576,0.987,1.565,-4.034,True
+7 Nirantar PPO-DAgger (GRU),0.0,1.331,92.852,3.466,0.003,0.916,24.326,0.985,5.092,-4.021,True
+7 Nirantar PPO-DAgger (GRU),1.0,1.136,94.098,4.026,0.005,0.869,23.068,0.989,3.985,-4.28,True
+7 Nirantar PPO-DAgger (GRU),2.0,0.876,93.722,3.459,0.007,0.867,23.022,0.989,0.899,-3.859,True
+7 Nirantar PPO-DAgger (GRU),3.0,0.896,93.575,3.435,0.005,0.868,23.052,0.986,2.155,-3.879,True
+7 Nirantar PPO-DAgger (GRU),4.0,1.033,93.366,3.699,0.005,0.996,26.44,0.989,0.961,-4.173,True
+7 Nirantar PPO-DAgger (MLP),0.0,1.149,94.263,3.652,0.006,0.842,22.365,0.99,0.42,-3.943,True
+7 Nirantar PPO-DAgger (MLP),1.0,0.842,94.395,3.528,0.005,0.856,22.724,0.989,1.146,-3.892,True
+7 Nirantar PPO-DAgger (MLP),2.0,0.93,92.756,3.561,0.011,0.862,22.893,0.987,1.304,-4.025,True
+7 Nirantar PPO-DAgger (MLP),3.0,1.408,92.475,3.457,0.007,0.868,23.059,0.989,2.771,-3.969,True
+7 Nirantar PPO-DAgger (MLP),4.0,0.917,93.576,3.574,0.004,0.846,22.467,0.99,0.958,-3.94,True

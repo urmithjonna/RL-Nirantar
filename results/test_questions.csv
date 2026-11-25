@@ -1,0 +1,5 @@
+,comparison,Reward: mean,Reward: 95% CI,Essentials off: mean,Essentials off: 95% CI,Evening grid: mean,Evening grid: 95% CI,Cut demand served: mean,Cut demand served: 95% CI
+Q1,Nirantar PPO-DAgger (GRU) − Rule-based,0.928,"[0.742, 1.193]",0.165,"[-0.285, 0.495]",-1.583,"[-1.718, -1.474]",0.215,"[-1.176, 1.785]"
+Q2,Nirantar PPO-DAgger (GRU) − MPC-CC,0.871,"[0.535, 1.257]",-2.194,"[-3.305, -1.246]",-0.131,"[-0.304, 0.026]",11.115,"[7.694, 14.758]"
+Q3,"Nirantar PPO-DAgger (GRU) − PPO-BC (v3, Mathura only)",0.101,"[-0.009, 0.224]",-0.38,"[-0.773, -0.065]",0.127,"[0.103, 0.149]",2.997,"[1.847, 4.234]"
+GRU − MLP,Nirantar PPO-DAgger (GRU) − Nirantar PPO-DAgger (MLP),-0.089,"[-0.146, -0.031]",0.005,"[-0.213, 0.282]",0.062,"[0.042, 0.082]",0.029,"[-0.459, 0.562]"

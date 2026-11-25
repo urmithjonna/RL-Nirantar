@@ -1,0 +1,76 @@
+{
+ "created": "2026-10-25T11:50:27",
+ "spec_sha256": "3000cceaea66a61992cf97644a52edd1e15e84dbc570cba760b51718d3b44b93",
+ "final_net": "GRU",
+ "mpc_cc": {
+  "validation_reward_per_week": {
+   "0.2": -15.513666689488636,
+   "0.1": -15.469043930649129,
+   "0.05": -15.472634943661387
+  },
+  "eps_star": 0.1,
+  "rule": "best mean validation reward (FINAL_SPEC section 6)"
+ },
+ "forecasters_sha256": "ad07774150319b179303420b65213a03c212fe7feb89bbcd2c6453254f35c1af",
+ "checkpoints": {
+  "MLP_s0": {
+   "sha256": "34c928906f936b1afdf3fed4de773752e588f82bd6177d55136b39ea4400a15c",
+   "step": 1000000,
+   "val_reward_per_week": -11.890576084964364
+  },
+  "MLP_s1": {
+   "sha256": "58efac1b8ddb50f4be72f86927f59a3a90d5e57d368dccebc11f16a143e99f8b",
+   "step": 500000,
+   "val_reward_per_week": -11.696485623657601
+  },
+  "MLP_s2": {
+   "sha256": "85ca58b9fec00023f47e56cd077064ba7b6f21e6ebc9415f0befbec8fbd5e29c",
+   "step": 200000,
+   "val_reward_per_week": -11.969090424786595
+  },
+  "MLP_s3": {
+   "sha256": "323501f809c1d25800e9233fa931de3aa6548e3bf016a3845ca11b4cf051c207",
+   "step": 800000,
+   "val_reward_per_week": -11.904312667381786
+  },
+  "MLP_s4": {
+   "sha256": "6c8b5c3c5dfc9dd6970b4786b3d7624a6a0d6f086d6a2ec82ef7bfff092f7871",
+   "step": 200000,
+   "val_reward_per_week": -11.751581334189229
+  },
+  "GRU_s0": {
+   "sha256": "4059786d1efce0decfe212e7400d16d4d81e71dd2ccfe83e72d6678f2eb39652",
+   "step": 900000,
+   "val_reward_per_week": -11.727474529017506
+  },
+  "GRU_s1": {
+   "sha256": "b8a0603407c0dabeb49a7e345f66a5d47e31c5ce420b07ed4509ff2338bf1958",
+   "step": 700000,
+   "val_reward_per_week": -11.629538965594781
+  },
+  "GRU_s2": {
+   "sha256": "c1ac55e15faf2a815f72235d19fe817cb534a909a543e6029a4a65952975d157",
+   "step": 300000,
+   "val_reward_per_week": -11.462033716339457
+  },
+  "GRU_s3": {
+   "sha256": "0fb0d76d6266d7959678453a105b7f1e8895e1bdfb995bf2687d761df40b2f43",
+   "step": 200000,
+   "val_reward_per_week": -11.553308733127794
+  },
+  "GRU_s4": {
+   "sha256": "c251901ca5cccbb5cd2b0eaf783a268f480b679e895a136d4567d8e4d1f9c330",
+   "step": 400000,
+   "val_reward_per_week": -11.551883031860903
+  }
+ },
+ "reference_ppo_bc_v3": {
+  "models/reference/forecasters_v1.pkl": "0f40f2939ace198a91b4ceac0212034a2681d9fac659146d00caedd29ceed26a",
+  "models/reference/forecasters_v2.pkl": "154e90380d19271e31b44f64905848b4e4f0bb734049e1a4c929b60b8f13c389",
+  "models/reference/ppo_bc_v3/PPO-BC_s0.zip": "c453a5b7d6c8890de1ec2fdc789da9dbfccb6f3b8dcd93364dc155d1f0f76598",
+  "models/reference/ppo_bc_v3/PPO-BC_s1.zip": "c40da94a5812272603a50c1f76f72c6540832535d52cfdb9c9ff90e831a529da",
+  "models/reference/ppo_bc_v3/PPO-BC_s2.zip": "8a3cd31b74f9f4e8273d581834710df01b604484640ec1dd3390282a7f261add",
+  "models/reference/ppo_bc_v3/PPO-BC_s3.zip": "a38ce4c6fcc2b04c854a59dceb6f3f69908c20d37830a77dcd04635c48b59281",
+  "models/reference/ppo_bc_v3/PPO-BC_s4.zip": "9735e45b95b94bde36046fc31901942cbb982e159361422306de8c6e43c8f5d6"
+ }
+}

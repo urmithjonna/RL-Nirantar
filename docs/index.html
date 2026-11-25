@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nirantar · RL for a shared street battery</title>
+<meta name="description" content="Nirantar: a PPO controller, warm-started by imitation and protected by a safety shield, that runs a solar + battery system shared by 10 homes under real Indian power cuts.">
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--edge:#26314d;--txt:#e6ebf5;--muted:#8a96b3;--solar:#ffc83d;--batt:#3ddc97;--grid:#ff6b6b;--home:#5aa9ff;--cut:#ffa94d;--bad:#ff4d6d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+a{color:var(--home)}
+.wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+header{padding:36px 0 18px}
+h1{font-size:clamp(26px,4vw,42px);margin:0 0 6px;line-height:1.15}
+h2{font-size:26px;margin:46px 0 10px}
+.sub{color:var(--muted);max-width:900px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:22px 0}
+.kpi{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px 16px}
+.kpi b{display:block;font-size:28px;color:var(--solar)}
+.kpi span{color:var(--muted);font-size:14px}
+.links{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:9px 14px;border-radius:9px;border:1px solid var(--edge);background:var(--panel);color:var(--txt);text-decoration:none;font-size:15px;cursor:pointer}
+.btn:hover{border-color:var(--solar)}
+.btn.primary{background:var(--solar);color:var(--bg);border-color:var(--solar);font-weight:600}
+.card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:14px}
+.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0 12px}
+.clock{font:700 30px ui-monospace,Consolas,monospace;color:var(--solar);margin-left:auto}
+input[type=range]{flex:1;min-width:160px;accent-color:var(--solar)}
+select{background:var(--panel);color:var(--txt);border:1px solid var(--edge);border-radius:8px;padding:7px}
+.sim{display:grid;grid-template-columns:1.35fr 1fr;gap:14px}
+@media(max-width:900px){.sim{grid-template-columns:1fr}}
+.ptitle{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em;margin-bottom:6px}
+svg text{font-family:"Segoe UI",system-ui,sans-serif}
+.obs{display:grid;grid-template-columns:1fr 90px 44px;gap:3px 8px;font-size:13px;align-items:center}
+.obs .bar{height:9px;background:var(--bg);border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.obs .bar i{display:block;height:100%;background:var(--home)}
+.obs .lab{color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.pol{display:flex;align-items:flex-end;gap:4px;height:90px;border-bottom:1px solid var(--edge);padding-top:4px}
+.pol div{flex:1;background:#4b5675;border-radius:3px 3px 0 0;min-height:1px;transition:height .25s}
+.pol div.e{background:#4b5675}.pol div.f{background:#5d4b75}.pol div.on{background:var(--batt)}
+.polx{display:flex;gap:4px;font-size:10.5px;color:var(--muted);text-align:center}
+.polx span{flex:1}
+.callout{border:1.5px solid var(--solar);border-radius:10px;padding:10px 12px;margin-top:12px;background:var(--bg);min-height:92px}
+.callout b{color:var(--solar)}
+.callout ul{margin:6px 0 0;padding-left:18px}
+.shield{font-size:14px;margin-top:6px}
+.reserve{height:10px;background:var(--bg);border:1px solid var(--edge);border-radius:4px;position:relative;margin:4px 0}
+.reserve i{position:absolute;left:0;top:0;bottom:0;background:var(--batt)}
+.reserve s{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--bad)}
+canvas{width:100%;display:block}
+.badge{display:inline-block;background:var(--solar);color:var(--bg);font-weight:700;border-radius:8px;padding:3px 10px;font-size:14px;visibility:hidden}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--edge);text-align:center}
+th{color:var(--muted);font-weight:600}
+td:first-child,th:first-child{text-align:left}
+tr.final td{background:#1d2a20;font-weight:700}
+.scroll{overflow-x:auto}
+.yes{color:var(--batt);font-weight:700}.no{color:var(--bad);font-weight:700}
+.figs{display:grid;grid-template-columns:1fr;gap:14px}
+.figs img{width:100%;border-radius:10px;background:#fff}
+video{width:100%;border-radius:12px;border:1px solid var(--edge)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.steps div{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.steps b{display:block;color:var(--solar)}
+footer{color:var(--muted);font-size:14px;padding:40px 0 30px;border-top:1px solid var(--edge);margin-top:50px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Nirantar — keeping the lights on with reinforcement learning</h1>
+  <p class="sub">A PPO controller for a <b>solar + battery system shared by 10 homes</b> on a street with frequent, home-by-home power cuts.
+  Trained on real outage and load data from three Indian regions, warm-started by imitating a perfect-foresight optimiser (behaviour cloning + DAgger),
+  protected by a 4-hour safety shield, and tested once on an unseen city — Pune 2018.</p>
+  <div class="kpis">
+    <div class="kpi"><b>+0.93</b><span>reward / week vs rule-based control (95% CI +0.74 … +1.19)</span></div>
+    <div class="kpi"><b>−1.58 kWh</b><span>evening grid import per day vs rule-based</span></div>
+    <div class="kpi"><b>+0.87</b><span>reward / week vs chance-constrained MPC</span></div>
+    <div class="kpi"><b>58%</b><span>of the rule → perfect-foresight gap closed</span></div>
+  </div>
+  <div class="links">
+    <a class="btn primary" href="#live">▶ Live simulation</a>
+    <a class="btn" href="https://github.com/lucky07-07/nirantar-reinforcement-learning">GitHub repository</a>
+  </div>
+</header>
+
+<h2 id="live">Live simulation <span class="badge" id="badge">KEY MOMENT</span></h2>
+<p class="sub" id="simsub">One real validation day replayed step by step: the frozen GRU-PPO policy (seed 2) decides every 15 minutes, the shield checks the decision,
+and the simulator moves the energy. Every number below comes from the recorded rollout.</p>
+<div class="controls">
+  <button class="btn primary" id="play">▶ Play</button>
+  <select id="speed"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select>
+  <input type="range" id="scrub" min="0" max="95" step="1" value="0" aria-label="time of day">
+  <span class="clock" id="clock">00:00</span>
+</div>
+<div class="sim">
+  <div class="card">
+    <div class="ptitle">PHYSICAL ENVIRONMENT · LIVE POWER FLOW (kW)</div>
+    <svg id="flow" viewBox="0 0 100 64" style="width:100%;display:block"></svg>
+    <div class="legend"><span><i style="background:var(--home)"></i>on grid</span><span><i style="background:var(--batt)"></i>cut · full backup</span>
+      <span><i style="background:var(--cut)"></i>cut · essentials only</span><span><i style="background:var(--bad)"></i>cut · unserved</span></div>
+  </div>
+  <div class="card">
+    <div class="ptitle">RL BRAIN · s<sub>t</sub> → forecasts → GRU-PPO π(a|s) → shield → a<sub>t</sub></div>
+    <div class="obs" id="obs"></div>
+    <div class="row2">
+      <div><div class="ptitle">FORECAST LOOK-AHEAD</div><svg id="fc" viewBox="0 0 120 70" style="width:100%"></svg>
+        <div class="legend"><span><i style="background:var(--cut)"></i>cut risk</span><span><i style="background:var(--home)"></i>demand</span></div></div>
+      <div><div class="ptitle">PPO ACTOR π(a|s)</div><div class="pol" id="pol"></div><div class="polx" id="polx"></div>
+        <div class="shield" id="shield"></div></div>
+    </div>
+    <div class="callout" id="callout"></div>
+  </div>
+</div>
+<div class="card" style="margin-top:14px"><div class="ptitle">24-HOUR TRACE (click to jump) · orange = homes in a cut · red band = evening peak 18–22 h</div>
+  <canvas id="chart" height="190"></canvas></div>
+
+<h2>Narrated video</h2>
+<video controls preload="metadata" src="assets/yuva_yodha_rl_simulation.mp4"></video>
+
+<h2>How it works</h2>
+<div class="steps">
+  <div><b>1 · Data</b>164 homes, ~9.2 M 15-minute home-steps: CEEW smart meters (Mathura, Bareilly), Prayas eMARC + ESMI (Uttar Pradesh, Pune), NASA POWER solar.</div>
+  <div><b>2 · Forecasts</b>Per-home cut risk and demand at +1/+2/+4 h (CatBoost, XGBoost, LightGBM), admitted only if ≥ 5% better than baselines.</div>
+  <div><b>3 · Imitation</b>A perfect-foresight MILP expert labels 658,560 states; behaviour cloning + 2 DAgger rounds give the starting policy.</div>
+  <div><b>4 · PPO + shield</b>1 M PPO steps per run; MLP vs GRU (last 8 states), 5 seeds each; the shield keeps ≥ 4 h of essential reserve.</div>
+  <div><b>5 · One test</b>Everything chosen on 73 validation weeks; Pune 2018 (50 weeks) run once with paired bootstrap CIs.</div>
+</div>
+<div class="figs"><img src="assets/fig_architecture.png" alt="System architecture"></div>
+
+<h2>Data</h2>
+<div class="card scroll"><table id="datatab"></table></div>
+<div class="figs" style="margin-top:14px"><img src="assets/fig_eda.png" alt="Exploratory analysis"></div>
+
+<h2>Results — Pune 2018 (50 weeks, run once)</h2>
+<div class="card scroll"><table id="restab"></table></div>
+<h2 style="font-size:20px">Pre-registered questions (final − other, 95% CI)</h2>
+<div class="card scroll"><table id="qtab"></table></div>
+<p class="sub">Honest negatives: DAgger improved agreement with the expert but not reward, and the GRU (chosen on validation) is slightly worse than the MLP on the test.</p>
+<div class="figs"><img src="assets/06_rl_validation_curves.png" alt="PPO validation curves"><img src="assets/07_test_pune.png" alt="Pune test distributions"></div>
+
+<footer>Anil Kumar (BL.SC.P2DSC25023) · Urmith Sai (BL.SC.P2DSC25015) · Guide: Dr. Bharath K.P. · M.Tech, Amrita School of Computing, Bengaluru ·
+Reinforcement Learning (24DS742). Data: CEEW, Prayas Energy Group (CC0), NASA POWER.</footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+const D = window.NIRANTAR, S = D.steps, N = S.length;
+const C = {solar:"#ffc83d", batt:"#3ddc97", grid:"#ff6b6b", home:"#5aa9ff", cut:"#ffa94d", bad:"#ff4d6d", edge:"#26314d", bg:"#0b1020", muted:"#8a96b3", txt:"#e6ebf5"};
+const LV = ["−1","−½","0","+½","+1"];
+const $ = id => document.getElementById(id);
+document.getElementById("simsub").innerHTML += ` Day shown: ${D.region}, validation data.`;
+
+// ---------------- flow diagram (SVG)
+const NS = "http://www.w3.org/2000/svg", svg = $("flow");
+const el = (t, a, p = svg) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+const EDGES = {solar_batt:[[22,16],[32,16],[32,28],[38,28]], solar_homes:[[22,9],[62,9],[62,19],[66,19]], batt_homes:[[50,32],[58,32],[58,33],[66,33]],
+  grid_homes:[[22,53],[30,53],[30,58],[63,58],[63,35],[66,35]], grid_batt:[[22,47],[32,47],[32,37],[38,37]]};
+const ECOL = {solar_batt:C.solar, solar_homes:C.solar, batt_homes:C.batt, grid_homes:C.grid, grid_batt:C.grid};
+const lines = {}, dots = {}, labels = {};
+for (const k in EDGES) {
+  lines[k] = el("polyline", {points: EDGES[k].map(p => p.join(",")).join(" "), fill:"none", "stroke-linecap":"round", "stroke-linejoin":"round"});
+  dots[k] = Array.from({length: 8}, () => el("circle", {r: 0.9, fill: ECOL[k], stroke: "white", "stroke-width": 0.15}));
+  labels[k] = el("text", {"font-size": 2.6, "font-weight": 700, fill: ECOL[k], "text-anchor": "middle"});
+}
+function box(x, y, w, h, col, title) { el("rect", {x, y, width:w, height:h, rx:1.5, fill:C.bg, stroke:col, "stroke-width":0.5});
+  const t = el("text", {x: x + w / 2, y: y + 4.5, "font-size": 2.4, "font-weight": 700, fill: col, "text-anchor": "middle"}); t.textContent = title;
+  return el("text", {x: x + w / 2, y: y + 9, "font-size": 2.5, fill: C.txt, "text-anchor": "middle"}); }
+const solarTxt = box(6, 5, 16, 12, C.solar, "SOLAR PV"), gridTxt = box(6, 43, 16, 12, C.grid, "UTILITY GRID");
+const peakBadge = el("text", {x: 14, y: 61, "font-size": 2.1, "font-weight": 700, "text-anchor": "middle"});
+el("rect", {x: 38, y: 22, width: 12, height: 20, rx: 1, fill: C.bg, stroke: C.batt, "stroke-width": 0.5});
+el("rect", {x: 42, y: 20.6, width: 4, height: 1.4, fill: C.batt});
+const fill = el("rect", {x: 39, width: 10, fill: C.batt, opacity: 0.85});
+el("line", {x1: 38.5, x2: 49.5, y1: 41 - 18 * 0.1, y2: 41 - 18 * 0.1, stroke: C.bad, "stroke-width": 0.3, "stroke-dasharray": "0.6 0.6"});
+const bt = el("text", {x: 44, y: 18.5, "font-size": 2.8, "font-weight": 700, fill: C.batt, "text-anchor": "middle"}); bt.textContent = "BATTERY";
+const socTxt = el("text", {x: 44, y: 33, "font-size": 3.6, "font-weight": 700, fill: C.txt, "text-anchor": "middle"});
+const kwhTxt = el("text", {x: 44, y: 46, "font-size": 2.4, fill: C.txt, "text-anchor": "middle"});
+const stTxt = el("text", {x: 44, y: 49.5, "font-size": 2.3, fill: C.batt, "text-anchor": "middle", "font-style": "italic"});
+const ht = el("text", {x: 82, y: 9.5, "font-size": 2.8, "font-weight": 700, fill: C.home, "text-anchor": "middle"}); ht.textContent = "STREET · 10 HOMES";
+const homes = [], homeLab = [];
+for (let i = 0; i < 10; i++) { const cx = 70 + (i % 5) * 6, cy = 19 + Math.floor(i / 5) * 14;
+  homes.push([el("rect", {x: cx - 2.2, y: cy - 1.2, width: 4.4, height: 4.2, stroke: "white", "stroke-width": 0.15}),
+              el("polygon", {points: `${cx - 2.8},${cy - 1.2} ${cx},${cy - 4} ${cx + 2.8},${cy - 1.2}`, stroke: "white", "stroke-width": 0.15})]);
+  homeLab.push(el("text", {x: cx, y: cy + 5.2, "font-size": 1.7, "text-anchor": "middle"})); }
+const onTxt = el("text", {x: 82, y: 44, "font-size": 2.0, fill: C.home, "text-anchor": "middle"});
+const cutTxt = el("text", {x: 82, y: 47.5, "font-size": 2.0, fill: C.cut, "text-anchor": "middle"});
+
+function along(pts, q) { let L = 0; const seg = []; for (let i = 0; i < pts.length - 1; i++) { const d = Math.hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]); seg.push(d); L += d; }
+  let t = q * L; for (let i = 0; i < seg.length; i++) { if (t <= seg[i] || i === seg.length - 1) { const a = Math.min(t / seg[i], 1);
+    return [pts[i][0] + a * (pts[i+1][0] - pts[i][0]), pts[i][1] + a * (pts[i+1][1] - pts[i][1])]; } t -= seg[i]; } }
+function mid(pts) { let best = 0, j = 0; for (let i = 0; i < pts.length - 1; i++) { const d = Math.hypot(pts[i+1][0]-pts[i][0], pts[i+1][1]-pts[i][1]); if (d >= best) { best = d; j = i; } }
+  return [(pts[j][0] + pts[j+1][0]) / 2, (pts[j][1] + pts[j+1][1]) / 2]; }
+
+// ---------------- brain panel
+const FEATS = [["Battery state of charge",0,1],["Solar, last completed hour",1,0.8],["Solar 24 h ago",2,0.6],["Load of supplied homes",3,1],
+  ["Essential need of cut homes",4,0.3],["Share of homes in a cut",6,1],["Past-7-day cut rate (now)",11,0.6],["Worst-served home",14,1],
+  ["Cut probability +1 h",15,0.6],["Demand forecast +1 h",20,1]];
+$("obs").innerHTML = FEATS.map((f, i) => `<span class="lab">${f[0]}</span><span class="bar"><i id="ob${i}"></i></span><span id="ov${i}"></span>`).join("");
+$("pol").innerHTML = Array.from({length: 10}, (_, k) => `<div id="pb${k}" class="${k < 5 ? "e" : "f"}"></div>`).join("");
+$("polx").innerHTML = Array.from({length: 10}, (_, k) => `<span>${LV[k % 5]}<br>${k < 5 ? "E" : "F"}</span>`).join("");
+const fc = $("fc");
+const fcEl = (t, a) => el(t, a, fc);
+fcEl("line", {x1: 12, y1: 60, x2: 116, y2: 60, stroke: C.edge, "stroke-width": 0.6});
+["now","+1h","+2h","+4h"].forEach((l, i) => { const t = fcEl("text", {x: 12 + [0, 26, 52, 104][i], y: 68, "font-size": 6, fill: C.muted, "text-anchor": "middle"}); t.textContent = l; });
+const cone = fcEl("polygon", {fill: C.cut, opacity: 0.25}), cutLine = fcEl("polyline", {fill: "none", stroke: C.cut, "stroke-width": 1.6}),
+      demLine = fcEl("polyline", {fill: "none", stroke: C.home, "stroke-width": 1.2, "stroke-dasharray": "3 2"});
+
+function reason(r) {
+  const n = r.off.reduce((a, b) => a + b, 0), full = r.applied >= 5, peak = r.hour >= 18 && r.hour < 22, m = [];
+  if (r.shield) m.push("Shield overrode the policy: keep ≥ 4 h of essential reserve");
+  if (n) { const src = r.b_cut > 1e-3 && r.pv_cut > 1e-3 ? "solar + battery" : (r.b_cut > 1e-3 ? "battery" : "solar");
+           m.push(`${n} home${n > 1 ? "s" : ""} cut → ${src} backs up ${full ? "their full load" : "essentials only"}`); }
+  if (r.ch_grid > 1e-3) m.push("Grid charge → building reserve before the evening");
+  else if (r.ch_pv > 0.05) m.push("Midday solar surplus → stored in the battery");
+  if (peak && r.b_on > 1e-3) m.push("Evening peak 18–22 h → battery discharges to cut grid import");
+  else if (peak) m.push("Evening peak → holding charge for possible cuts");
+  if (r.cutp_1 > 0.15) m.push(`Forecast: cut risk ${Math.round(100 * r.cutp_1)}% in the next hour`);
+  if (!m.length) m.push("No surplus, no peak, no cut → hold the battery");
+  return [`action: battery ${LV[r.applied % 5]} · ${full ? "full backup" : "essentials only"}`, m.slice(0, 3)];
+}
+
+// ---------------- key moments (same rule as the video)
+const argmaxIn = (lo, hi, f) => { let b = -1, j = 0; S.forEach((r, i) => { if (r.hour >= lo && r.hour < hi && f(r) > b) { b = f(r); j = i; } }); return j; };
+const KEYS = [[argmaxIn(5, 10, r => r.load_on + r.load_cut), "Morning ramp"], [argmaxIn(10, 15, r => r.ch_pv), "Midday solar surplus"],
+              [argmaxIn(18, 22, r => r.b_on + r.b_cut), "Evening peak"]];
+
+// ---------------- chart
+const cv = $("chart"), cx = cv.getContext("2d");
+function drawChart(x) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = 190; cv.width = w * dpr; cv.height = h * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  cx.fillStyle = "#121a2e"; cx.fillRect(0, 0, w, h);
+  const L = 36, R = w - 40, T = 10, B = h - 24, X = t => L + (R - L) * t / 24;
+  const ymax = Math.max(...S.map(r => Math.max(r.pv, r.load_on + r.load_cut, r.grid))) * 1.1, Y = v => B - (B - T) * v / ymax, Ys = v => B - (B - T) * v / 100;
+  cx.fillStyle = "rgba(255,107,107,.09)"; cx.fillRect(X(18), T, X(22) - X(18), B - T);
+  cx.strokeStyle = "#26314d"; cx.fillStyle = C.muted; cx.font = "11px Segoe UI"; cx.lineWidth = 1;
+  for (let hh = 0; hh <= 24; hh += 3) { cx.beginPath(); cx.moveTo(X(hh), T); cx.lineTo(X(hh), B); cx.stroke(); cx.fillText(String(hh).padStart(2, "0") + ":00", X(hh) - 15, h - 8); }
+  const upto = Math.floor(x) + 1;
+  for (let i = 0; i < upto; i++) { const n = S[i].off.reduce((a, b) => a + b, 0); if (n) { cx.fillStyle = "rgba(255,169,77,.55)"; cx.fillRect(X(S[i].hour), B - n * 6, X(0.25) - X(0), n * 6); } }
+  const line = (f, col, yf, lw) => { cx.strokeStyle = col; cx.lineWidth = lw; cx.beginPath(); for (let i = 0; i < upto; i++) { const xx = X(S[i].hour + 0.125), yy = yf(f(S[i])); i ? cx.lineTo(xx, yy) : cx.moveTo(xx, yy); } cx.stroke(); };
+  line(r => r.pv, C.solar, Y, 2); line(r => r.load_on + r.load_cut, C.home, Y, 2); line(r => r.grid, C.grid, Y, 1.6); line(r => 100 * r.soc_after / 7.5, C.batt, Ys, 2.4);
+  cx.strokeStyle = "white"; cx.lineWidth = 1.5; cx.beginPath(); cx.moveTo(X(x / 4), T); cx.lineTo(X(x / 4), B); cx.stroke();
+  cx.font = "12px Segoe UI"; [["solar kW", C.solar], ["demand kW", C.home], ["grid import kW", C.grid], ["battery SoC %", C.batt]].forEach(([t, c], i) => { cx.fillStyle = c; cx.fillText(t, L + 8 + i * 110, T + 12); });
+}
+cv.addEventListener("click", e => { const rc = cv.getBoundingClientRect(), L = 36, R = rc.width - 40; x = Math.max(0, Math.min(N - 0.01, (e.clientX - rc.left - L) / (R - L) * N)); });
+
+// ---------------- render one moment
+let x = 0, playing = false, last = null;
+function render(now) {
+  const s = Math.min(Math.floor(x), N - 1), r = S[s], frac = x - s, tglob = now / 1000;
+  const hh = Math.floor(r.hour), mm = Math.round((r.hour % 1) * 60); $("clock").textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+  $("scrub").value = s;
+  const flows = {solar_batt: r.ch_pv, solar_homes: r.pv_on + r.pv_cut, batt_homes: r.b_on + r.b_cut, grid_homes: Math.max(r.load_on - r.pv_on - r.b_on, 0), grid_batt: r.ch_grid};
+  for (const k in EDGES) { const v = flows[k], on = v > 0.02;
+    lines[k].setAttribute("stroke", on ? ECOL[k] : C.edge); lines[k].setAttribute("stroke-width", on ? 0.4 + 0.8 * Math.min(v / 2.5, 1.5) : 0.3);
+    lines[k].setAttribute("stroke-dasharray", on ? "" : "0.8 0.8"); lines[k].setAttribute("opacity", on ? 0.55 : 0.8);
+    dots[k].forEach((d, i) => { if (!on) { d.setAttribute("visibility", "hidden"); return; } const q = (i / 8 + tglob * (0.12 + 0.18 * Math.min(v, 3))) % 1, p = along(EDGES[k], q);
+      d.setAttribute("visibility", "visible"); d.setAttribute("cx", p[0]); d.setAttribute("cy", p[1]); d.setAttribute("r", 0.6 + 0.35 * Math.min(v, 3)); });
+    const m = mid(EDGES[k]); labels[k].setAttribute("x", m[0]); labels[k].setAttribute("y", m[1] - 1.3); labels[k].textContent = on ? v.toFixed(2) + " kW" : ""; }
+  solarTxt.textContent = r.pv.toFixed(2) + " kW"; gridTxt.textContent = "import " + (r.grid >= 0 ? "+" : "") + r.grid.toFixed(2) + " kW";
+  const peak = r.hour >= 18 && r.hour < 22; peakBadge.textContent = peak ? "EVENING PEAK 18–22 h · imports penalised" : "off-peak"; peakBadge.setAttribute("fill", peak ? C.grid : C.muted);
+  const soc = r.soc_before + frac * (r.soc_after / 7.5 - r.soc_before); fill.setAttribute("y", 41 - 18 * soc); fill.setAttribute("height", 18 * soc);
+  socTxt.textContent = Math.round(100 * soc) + "%"; kwhTxt.textContent = (7.5 * soc).toFixed(2) + " kWh";
+  const st = r.ch_pv + r.ch_grid > 1e-3 ? "charging" : (r.b_on + r.b_cut > 1e-3 ? "discharging" : "idle"); stTxt.textContent = st; stTxt.setAttribute("fill", st === "idle" ? C.muted : C.batt);
+  r.off.forEach((o, i) => { let col = C.home, lab = "grid"; if (o) { if (r.ess_short[i] > 1e-4) { col = C.bad; lab = "no power"; } else if (r.full_short[i] > 1e-4) { col = C.cut; lab = "essentials"; } else { col = C.batt; lab = "full backup"; } }
+    homes[i].forEach(e => e.setAttribute("fill", col)); homeLab[i].textContent = lab; homeLab[i].setAttribute("fill", col); });
+  onTxt.textContent = `supplied by grid: load ${r.load_on.toFixed(2)} kW`; cutTxt.textContent = `in a cut: ${r.off.reduce((a, b) => a + b, 0)} home(s), demand ${r.load_cut.toFixed(2)} kW`;
+  FEATS.forEach((f, i) => { const v = r.s[f[1]]; $("ob" + i).style.width = Math.max(0, Math.min(1, v / f[2])) * 100 + "%"; $("ov" + i).textContent = v.toFixed(2); });
+  r.probs.forEach((p, k) => { const b = $("pb" + k); b.style.height = (p * 100) + "%"; b.className = (k === r.proposed ? "on" : (k < 5 ? "e" : "f")); });
+  const nm = a => LV[a % 5] + (a >= 5 ? "F" : "E");
+  $("shield").innerHTML = `<b style="color:${r.shield ? C.grid : C.batt}">Shield ${r.shield ? "OVERRIDE" : "pass"}</b> · ${nm(r.proposed)} → ${nm(r.applied)} · critic V(s) ${r.value.toFixed(2)}
+    <div class="reserve"><i style="width:${Math.min(r.avail_kwh / 6.5, 1) * 100}%"></i><s style="left:${Math.min(r.need_kwh / 6.5, 1) * 100}%"></s></div>
+    <span style="color:${C.muted};font-size:12.5px">stored ${r.avail_kwh.toFixed(2)} kWh vs 4 h essential need ${r.need_kwh.toFixed(2)} kWh</span>`;
+  const [head, msgs] = reason(r); $("callout").innerHTML = `<b>${head}</b><ul>${msgs.map(m => `<li>${m}</li>`).join("")}</ul>`;
+  const Xf = [12, 38, 64, 116], Yc = v => 60 - 52 * v, ymax = 6;
+  const cuts = [r.s[6], r.cutp_1, r.cutp_2, r.cutp_4], his = [r.s[6], r.cutp_1_hi, r.cutp_2_hi, r.cutp_4_hi], dem = [r.load_on + r.load_cut, r.lf_1, r.lf_2, r.lf_4];
+  cone.setAttribute("points", Xf.map((xx, i) => `${xx},${Yc(his[i])}`).join(" ") + " " + [...Xf].reverse().map(xx => `${xx},60`).join(" "));
+  cutLine.setAttribute("points", Xf.map((xx, i) => `${xx},${Yc(cuts[i])}`).join(" ")); demLine.setAttribute("points", Xf.map((xx, i) => `${xx},${60 - 52 * dem[i] / ymax}`).join(" "));
+  const near = KEYS.find(([k]) => Math.abs(x - (k + 0.5)) < 3.5); $("badge").style.visibility = near ? "visible" : "hidden"; if (near) $("badge").textContent = "KEY MOMENT · " + near[1];
+  drawChart(x);
+}
+function loop(now) {
+  if (playing && last !== null) { const sp = +$("speed").value, nearKey = KEYS.some(([k]) => Math.abs(x - (k + 0.5)) < 3.5);
+    x += (now - last) / 1000 * 2.5 * sp / (nearKey ? 2.5 : 1); if (x >= N) { x = N - 0.01; playing = false; $("play").textContent = "↺ Replay"; } }
+  last = now; render(now); requestAnimationFrame(loop);
+}
+$("play").onclick = () => { if (!playing && x >= N - 0.02) x = 0; playing = !playing; $("play").textContent = playing ? "❚❚ Pause" : "▶ Play"; };
+$("scrub").oninput = e => { x = +e.target.value + 0.001; };
+requestAnimationFrame(loop);
+
+// ---------------- tables
+$("restab").innerHTML = "<tr><th>Method</th><th>Essentials off (h/home·mo) ↓</th><th>Cut demand served (%) ↑</th><th>Evening grid (kWh/day) ↓</th><th>Cycles/day</th><th>Reward/week ↑</th><th>Score (0–100)</th></tr>" +
+  D.results.map(r => `<tr class="${r.method.includes("★") ? "final" : ""}"><td>${r.method}</td><td>${r.ess.toFixed(2)}</td><td>${r.served.toFixed(1)}</td><td>${r.evening.toFixed(2)}</td><td>${r.cycles.toFixed(2)}</td><td>${r.reward.toFixed(2)}</td><td>${r.score}</td></tr>`).join("");
+const sg = v => (v >= 0 ? "+" : "") + v.toFixed(2);
+$("qtab").innerHTML = "<tr><th>Question</th><th>Reward / week</th><th>Essentials off</th><th>Evening grid</th><th>Verdict</th></tr>" +
+  D.questions.map(q => `<tr><td>${q.q === "GRU − MLP" ? "" : q.q + " "}${q.name}</td><td>${sg(q.reward)} ${q.reward_ci}</td><td>${sg(q.ess)} ${q.ess_ci}</td><td>${sg(q.evening)} ${q.evening_ci}</td><td class="${q.verdict === "YES" ? "yes" : (q.verdict === "NO" ? "no" : "")}">${q.verdict}</td></tr>`).join("");
+const role = {Mathura: "train + val", Bareilly: "train + val", UP: "train + val", Pune: "test (once)"};
+$("datatab").innerHTML = "<tr><th>Region</th><th>Role</th><th>Homes</th><th>Home-steps</th><th>Cut h / home·day</th><th>Cuts ≤ 30 min</th><th>Mean demand (kW)</th></tr>" +
+  Object.entries(D.data).map(([k, v]) => `<tr><td>${k === "UP" ? "Uttar Pradesh" : k}</td><td>${role[k]}</td><td>${v.homes}</td><td>${(v.home_steps / 1e6).toFixed(2)} M</td><td>${v.cut_h_per_home_day.toFixed(2)}</td><td>${v.spell_le_30min_pct.toFixed(0)}%</td><td>${v.demand_kw_mean.toFixed(3)}</td></tr>`).join("");
+</script>
+</body>
+</html>

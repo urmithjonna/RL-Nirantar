@@ -1,0 +1,82 @@
+{
+ "MLP_s0": {
+  "net": "MLP",
+  "seed": 0,
+  "chosen_round": 0,
+  "val_reward": -13.959952876858258,
+  "minutes": 31.818852774302165,
+  "sha256": "82bdc6abafa87c7845d62ad490fbfa28b0f0e44f0aa6b904c2f388dcb7bebaf1"
+ },
+ "MLP_s1": {
+  "net": "MLP",
+  "seed": 1,
+  "chosen_round": 1,
+  "val_reward": -13.936111425094728,
+  "minutes": 33.87161849339803,
+  "sha256": "f0cdb2d0e4743ed255ce23ac17ede45cdb179514d6b13b177c6a2c0e360cf8cc"
+ },
+ "MLP_s2": {
+  "net": "MLP",
+  "seed": 2,
+  "chosen_round": 1,
+  "val_reward": -13.963816472233894,
+  "minutes": 34.21227797269821,
+  "sha256": "ef9b39eee1ecf145587783e887ec945ca8451bf8d1e71d72123fa092b6550e05"
+ },
+ "MLP_s3": {
+  "net": "MLP",
+  "seed": 3,
+  "chosen_round": 0,
+  "val_reward": -13.967191518655941,
+  "minutes": 33.070284553368886,
+  "sha256": "76792eb0a14fbafee9f7c0d78d1618660195a873062802cae6fe645531dd6611"
+ },
+ "MLP_s4": {
+  "net": "MLP",
+  "seed": 4,
+  "chosen_round": 1,
+  "val_reward": -13.900664043120772,
+  "minutes": 35.0779704451561,
+  "sha256": "bd8998d47f1c722b298f1721cc6448927e2d197f3340e82ac31d79220a7e0996"
+ },
+ "GRU_s0": {
+  "net": "GRU",
+  "seed": 0,
+  "chosen_round": 0,
+  "val_reward": -13.247480464963008,
+  "minutes": 38.00719749927521,
+  "sha256": "8fab51246aac5ad29cb89122d7e402b5cbb6c841c01cc4dbc65e74ce2f093fca"
+ },
+ "GRU_s1": {
+  "net": "GRU",
+  "seed": 1,
+  "chosen_round": 0,
+  "val_reward": -13.470121121488827,
+  "minutes": 35.96121949354808,
+  "sha256": "c0d7a52d7b91bc817529f45d981b2ba292924f7e27c61b653adbcdeb5189a66a"
+ },
+ "GRU_s2": {
+  "net": "GRU",
+  "seed": 2,
+  "chosen_round": 0,
+  "val_reward": -13.4309353504615,
+  "minutes": 34.49788534641266,
+  "sha256": "4943d37383cbc0792fcfde9ac7d64fb431c95c111e20c65ed1501584391442c7"
+ },
+ "GRU_s3": {
+  "net": "GRU",
+  "seed": 3,
+  "chosen_round": 0,
+  "val_reward": -13.30805064289949,
+  "minutes": 32.93691456715266,
+  "sha256": "1a645fabe95cc855d0ef220569ed45dada3d7d05cfcf16e315d89985e0d620d0"
+ },
+ "GRU_s4": {
+  "net": "GRU",
+  "seed": 4,
+  "chosen_round": 0,
+  "val_reward": -12.899349161176229,
+  "minutes": 35.32979149023692,
+  "sha256": "556986a5787e8a6a78bc5d6be32e24ba06411a489140248a1a2e29b6e1fa17db"
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "config": {
+  "n_homes": 10,
+  "pv_kwp_per_home": 0.5,
+  "batt_kwh_per_home": 0.75,
+  "batt_kw_per_home": 0.25,
+  "eta": 0.95,
+  "soc_min": 0.1,
+  "essential_share": 0.3,
+  "peak_hours": [
+   18,
+   22
+  ],
+  "peak_cap_kw_per_home": 0.576,
+  "w_ess": 10.0,
+  "w_other": 3.0,
+  "w_peak": 1.0,
+  "w_peak_excess": 3.0,
+  "w_wear": 0.2,
+  "w_fair": 5.0,
+  "reward_scale": 0.1,
+  "use_forecasts": true
+ },
+ "peak_cap_rule": "75th percentile of 10-home street evening (18-22h) demand over TRAIN windows (seed 0)",
+ "wear": "Rs 1.18 per kWh discharged (BNEF 2025 stationary pack $70/kWh x Rs 96.33/$ / (6000 cycles x 0.95 DoD)) / Rs 6 per reward unit = 0.20",
+ "note": "identical to versions 1-3 (results/step5_config.json in the archive)"
+}

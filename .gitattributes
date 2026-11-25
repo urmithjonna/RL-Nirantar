@@ -1,0 +1,2 @@
+# keep the hash-locked plan byte-identical on every platform
+results/FINAL_SPEC.md -text

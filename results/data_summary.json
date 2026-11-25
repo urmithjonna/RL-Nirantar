@@ -1,0 +1,141 @@
+{
+ "regions": {
+  "Mathura": {
+   "homes": 38,
+   "steps": 63552,
+   "home_steps": 2414976,
+   "from": "2019-05-01",
+   "to": "2021-02-20",
+   "coverage_pct": 65.4,
+   "cut_pct": 9.1,
+   "cut_h_per_home_day": 2.19,
+   "spell_median_h": 0.5,
+   "spell_le_30min_pct": 57.9,
+   "spell_le_6h_pct": 97.9,
+   "n_spells": 33147,
+   "worst_hour": 7,
+   "worst_hour_pct": 24.6,
+   "median_share_homes_off_together_pct": 11.8,
+   "demand_kw_mean": 0.355,
+   "demand_peak_hour": 22,
+   "solar_kwh_per_kwp_day": 3.54
+  },
+  "Bareilly": {
+   "homes": 46,
+   "steps": 87072,
+   "home_steps": 4005312,
+   "from": "2019-05-09",
+   "to": "2021-10-31",
+   "coverage_pct": 67.4,
+   "cut_pct": 7.0,
+   "cut_h_per_home_day": 1.68,
+   "spell_median_h": 0.5,
+   "spell_le_30min_pct": 52.5,
+   "spell_le_6h_pct": 99.4,
+   "n_spells": 51423,
+   "worst_hour": 15,
+   "worst_hour_pct": 13.1,
+   "median_share_homes_off_together_pct": 11.5,
+   "demand_kw_mean": 0.341,
+   "demand_peak_hour": 23,
+   "solar_kwh_per_kwp_day": 3.42
+  },
+  "UP": {
+   "homes": 36,
+   "steps": 35040,
+   "home_steps": 1261440,
+   "from": "2019-01-01",
+   "to": "2019-12-31",
+   "coverage_pct": 93.6,
+   "cut_pct": 9.9,
+   "cut_h_per_home_day": 2.37,
+   "spell_median_h": 0.5,
+   "spell_le_30min_pct": 58.3,
+   "spell_le_6h_pct": 97.3,
+   "n_spells": 19527,
+   "worst_hour": 10,
+   "worst_hour_pct": 15.5,
+   "median_share_homes_off_together_pct": 13.9,
+   "demand_kw_mean": 0.28,
+   "demand_peak_hour": 19,
+   "solar_kwh_per_kwp_day": 3.44
+  },
+  "Pune": {
+   "homes": 44,
+   "steps": 35040,
+   "home_steps": 1541760,
+   "from": "2018-01-01",
+   "to": "2018-12-31",
+   "coverage_pct": 95.6,
+   "cut_pct": 4.6,
+   "cut_h_per_home_day": 1.11,
+   "spell_median_h": 0.5,
+   "spell_le_30min_pct": 51.5,
+   "spell_le_6h_pct": 96.5,
+   "n_spells": 12399,
+   "worst_hour": 15,
+   "worst_hour_pct": 11.2,
+   "median_share_homes_off_together_pct": 34.1,
+   "demand_kw_mean": 0.222,
+   "demand_peak_hour": 8,
+   "solar_kwh_per_kwp_day": 3.76
+  }
+ },
+ "sample_MH01_2019_06_06": [
+  {
+   "time": "2019-06-06 18:45:00",
+   "cut": 0,
+   "supplied_kw": 0.008,
+   "demand_kw": 0.008,
+   "pv_kw_per_kwp": 0.025,
+   "ghi_w_m2": 33.6,
+   "t2m_c": 43.5
+  },
+  {
+   "time": "2019-06-06 19:00:00",
+   "cut": 0,
+   "supplied_kw": 0.072,
+   "demand_kw": 0.072,
+   "pv_kw_per_kwp": 0.007,
+   "ghi_w_m2": 9.5,
+   "t2m_c": 43.0
+  },
+  {
+   "time": "2019-06-06 19:15:00",
+   "cut": 1,
+   "supplied_kw": null,
+   "demand_kw": 0.129,
+   "pv_kw_per_kwp": 0.005,
+   "ghi_w_m2": 7.1,
+   "t2m_c": 42.7
+  },
+  {
+   "time": "2019-06-06 19:30:00",
+   "cut": 1,
+   "supplied_kw": null,
+   "demand_kw": 0.122,
+   "pv_kw_per_kwp": 0.004,
+   "ghi_w_m2": 4.8,
+   "t2m_c": 42.4
+  },
+  {
+   "time": "2019-06-06 19:45:00",
+   "cut": 0,
+   "supplied_kw": 0.06,
+   "demand_kw": 0.06,
+   "pv_kw_per_kwp": 0.002,
+   "ghi_w_m2": 2.4,
+   "t2m_c": 42.0
+  },
+  {
+   "time": "2019-06-06 20:00:00",
+   "cut": 0,
+   "supplied_kw": 0.088,
+   "demand_kw": 0.088,
+   "pv_kw_per_kwp": 0.0,
+   "ghi_w_m2": 0.0,
+   "t2m_c": 41.7
+  }
+ ],
+ "notes": "Computed from data/processed (read only). Cut fraction over present readings only: NaN (meter gap) is not counted as a cut. Demand and load are in kW."
+}

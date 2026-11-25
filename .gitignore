@@ -1,0 +1,33 @@
+# environments and caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+**/catboost_info/
+.claude/
+~$*
+
+# data: raw and processed tables are public datasets (see README); only the locked split is committed
+data/*
+!data/processed/
+data/processed/*
+!data/processed/split.json
+!data/processed/split_lock.json
+!data/processed/episodes.json
+
+# models: only the frozen final controllers and forecasters are committed
+models/*
+!models/forecasters.pkl
+!models/rl/
+
+# result caches, old versions and superseded material
+results/_val_cache/
+results/_test_cache/
+_archive*/
+Report/Reinforcement learning_End_Sem_Report_Template*.docx
+deck/Nirantar_YuvaYodha.pptx
+deck/build_deck.js
+
+# project report and paper are kept locally, not published
+Report/Yuva_Yodha_Final_Project_Report.*
+Report/Yuva_Yodha_IEEE_Paper.*
